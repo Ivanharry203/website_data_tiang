@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Polygon Manager — Cetak Dokumen UIM Terminasi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-container">
+      <div class="brand">Polygon Manager</div>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn active" data-target="upload">Upload Polygon</button>
+      <button class="nav-btn" data-target="view">Lihat Data</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="card-upload" class="card">
+      <h2>Upload Polygon</h2>
+
+      <div class="card-row">
+        <label class="file-label">
+          Pilih file KML
+          <input id="kmlInput" type="file" accept=".kml,application/vnd.google-earth.kml+xml" />
+        </label>
+
+        <div class="field">
+          <label for="namaJalan">Nama Jalan</label>
+          <input id="namaJalan" type="text" placeholder="Masukkan nama jalan..." />
+        </div>
+
+        <div class="actions">
+          <button id="btnUpload" class="btn" disabled>Upload ke Spreadsheet</button>
+          <a id="btnOpenSheet" class="btn link" href="https://docs.google.com/spreadsheets/d/1vYrvhJ6zov19xtEvN9do8Fat_LHa5_FpzBzmipTs4eI/edit?usp=sharing" target="_blank">Lihat Spreadsheet</a>
+        </div>
+      </div>
+
+      <div id="kmlPreview" class="preview">
+        <h3>Koordinat (dari file KML)</h3>
+        <pre id="coordsText">Belum ada file KML yang dipilih.</pre>
+      </div>
+
+      <div id="uploadStatus" class="status"></div>
+    </section>
+
+    <!-- View Card -->
+    <section id="card-view" class="card hidden">
+      <h2>Lihat Data</h2>
+
+      <div class="field">
+        <label for="searchInput">Cari Nama Jalan</label>
+        <input id="searchInput" type="search" placeholder="Ketik nama jalan..." autocomplete="off" />
+        <div id="suggestions" class="suggestions hidden"></div>
+      </div>
+
+      <div id="resultInfo" class="result-info"></div>
+
+      <div id="matchResults" class="preview">
+        <h3>Hasil Pencocokan</h3>
+        <pre id="matchesText">Belum ada hasil.</pre>
+      </div>
+      <button id="btnDownloadKml" class="btn" style="margin-top:10px;" disabled>Download KML</button>
+    </section>
+  </main>
+
+  <!-- Popup Konfirmasi -->
+  <div id="confirmModal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>Nama Jalan Sudah Ada</h3>
+      <p>
+        Nama jalan <b id="modalNamaJalan"></b> sudah ada di data.<br>
+        Apakah ingin melanjutkan penghapusan <b>menggantian data</b>?
+      </p>
+
+      <div class="modal-actions">
+        <button id="btnCancelReplace" class="btn-secondary">Tidak</button>
+        <button id="btnConfirmReplace" class="btn-danger">Ya</button>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer">
+    <small>© Magang Industri 2025 UNTIDAR</small>
+  </footer>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
