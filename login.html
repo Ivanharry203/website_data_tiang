@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>Login – Website Data Tiang</title>
+  <style>
+    /* Reset dan font */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #333;
+      position: relative;
+    }
+    
+    /* Background dengan elemen dekoratif */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 240px;
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+      z-index: -1;
+      border-bottom-left-radius: 30% 20%;
+      border-bottom-right-radius: 30% 20%;
+    }
+    
+    /* Container card */
+    .login-container {
+      background-color: white;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      padding: 0;
+    }
+    
+    /* Header card dengan gradien */
+    .card-header {
+      background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+      color: rgb(255, 0, 0);
+      padding: 30px 20px 25px;
+      text-align: center;
+      position: relative;
+    }
+    
+    /* Logo/icon DT */
+    .logo-img {
+      width: 70%;
+      height: 80%;
+      object-fit: contain;
+    }
+    
+    .system-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      letter-spacing: 0.5px;
+    }
+    
+    .management-title {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+    
+    .login-title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+    
+    /* Body card */
+    .card-body {
+      padding: 35px 30px;
+    }
+    
+    /* Form group styling */
+    .form-group {
+      margin-bottom: 25px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+      font-size: 15px;
+    }
+    
+    /* Input styling */
+    #email, #password {
+      display: block;
+      width: 100%;
+      padding: 15px 18px;
+      border: 1px solid #e1e5eb;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background-color: #f8fafc;
+    }
+    
+    #email {
+      color: #555;
+      background-color: #f8fafc;
+    }
+    
+    #password {
+      letter-spacing: 1px;
+    }
+    
+    #email:focus, #password:focus {
+      outline: none;
+      border-color: #6a11cb;
+      box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+      background-color: white;
+    }
+    
+    /* Password container dengan toggle */
+    .password-container {
+      position: relative;
+    }
+    
+    .password-toggle {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #ff0505;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 5px;
+    }
+    
+    /* Checkbox anti-robot styling */
+    .robot-checkbox {
+      margin: 20px 0 25px 0;
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+    }
+    
+    .robot-checkbox input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      cursor: pointer;
+      accent-color: #fc2525;
+    }
+    
+    .robot-checkbox label {
+      font-size: 14px;
+      color: #555;
+      cursor: pointer;
+      font-weight: 500;
+      user-select: none;
+    }
+    
+    .robot-checkbox label:hover {
+      color: #333;
+    }
+    
+    /* Button styling */
+    #btnLogin {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(to right, #fc2525, #cb1111);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.3);
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+    }
+    
+    #btnLogin:hover:not(:disabled) {
+      background: linear-gradient(to right, #e41c1c, #b80d0d);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(37, 117, 252, 0.4);
+    }
+    
+    #btnLogin:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 3px 10px rgba(37, 117, 252, 0.3);
+    }
+    
+    #btnLogin:disabled {
+      background: linear-gradient(to right, #cccccc, #aaaaaa);
+      cursor: not-allowed;
+      opacity: 0.7;
+      box-shadow: none;
+      transform: none;
+    }
+    
+    /* Responsif untuk mobile */
+    @media (max-width: 480px) {
+      body {
+        padding: 15px;
+      }
+      
+      .login-container {
+        max-width: 95%;
+      }
+      
+      .card-body {
+        padding: 25px 20px;
+      }
+      
+      body::before {
+        height: 220px;
+      }
+      
+      .robot-checkbox {
+        margin: 15px 0 20px 0;
+      }
+    }
+    
+    /* Placeholder styling */
+    ::placeholder {
+      color: #aaa;
+      opacity: 1;
+    }
+    
+    :-ms-input-placeholder {
+      color: #aaa;
+    }
+    
+    ::-ms-input-placeholder {
+      color: #aaa;
+    }
+    
+    /* Untuk menyembunyikan script */
+    script {
+      display: none;
+    }
+    
+    /* Tambahkan sedikit jarak di bawah card */
+    body::after {
+      content: "";
+      display: block;
+      height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tambahkan struktur untuk card login -->
+  <div class="login-container">
+    <div class="card-header">
+      <div class="logo-circle">
+        <img src="../assets/telses-DQFAFTSJ.png" alt="Logo Telses" class="logo-img">
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <!-- Form group untuk email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="masukkan email" />
+      </div>
+      
+      <!-- Form group untuk password dengan toggle -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-container">
+          <input id="password" type="password" placeholder="Masukkan password" />
+          <button type="button" class="password-toggle" id="togglePassword">Tampilkan</button>
+        </div>
+      </div>
+      
+      <!-- Checkbox anti-robot -->
+      <div class="robot-checkbox">
+        <input type="checkbox" id="robotCheckbox">
+        <label for="robotCheckbox">Saya bukan robot</label>
+      </div>
+      
+      <!-- Tombol login -->
+      <button id="btnLogin" disabled>Login</button>
+    </div>
+  </div>
+
+  <script type="module" src="./login.js"></script>
+  <script>
+    // Script untuk toggle password visibility
+    document.addEventListener('DOMContentLoaded', function() {
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      const robotCheckbox = document.getElementById('robotCheckbox');
+      const btnLogin = document.getElementById('btnLogin');
+      
+      // Fungsi toggle password
+      if (togglePassword && passwordInput) {
+        togglePassword.addEventListener('click', function() {
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          passwordInput.setAttribute('type', type);
+          
+          // Ganti teks tombol
+          this.textContent = type === 'password' ? 'Tampilkan' : 'Sembunyikan';
+        });
+      }
+      
+      // Fungsi untuk mengaktifkan/menonaktifkan tombol login berdasarkan checkbox
+      if (robotCheckbox && btnLogin) {
+        robotCheckbox.addEventListener('change', function() {
+          if (this.checked) {
+            btnLogin.disabled = false;
+            btnLogin.style.cursor = 'pointer';
+          } else {
+            btnLogin.disabled = true;
+            btnLogin.style.cursor = 'not-allowed';
+          }
+        });
+        
+        // Inisialisasi tombol login sebagai disabled
+        btnLogin.disabled = true;
+      }
+      
+      // Validasi form saat input berubah (opsional)
+      const emailInput = document.getElementById('email');
+      
+      function validateForm() {
+        if (robotCheckbox && btnLogin) {
+          const isEmailFilled = emailInput && emailInput.value.trim() !== '';
+          const isPasswordFilled = passwordInput && passwordInput.value.trim() !== '';
+          
+          // Jika checkbox dicentang DAN email dan password terisi
+          if (robotCheckbox.checked && isEmailFilled && isPasswordFilled) {
+            btnLogin.disabled = false;
+          } else {
+            // Nonaktifkan jika checkbox tidak dicentang atau form belum lengkap
+            btnLogin.disabled = true;
+          }
+        }
+      }
+      
+      // Tambahkan event listener untuk validasi form
+      if (emailInput) {
+        emailInput.addEventListener('input', validateForm);
+      }
+      
+      if (passwordInput) {
+        passwordInput.addEventListener('input', validateForm);
+      }
+    });
+  </script>
+</body>
+</html>
